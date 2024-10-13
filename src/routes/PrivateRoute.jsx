@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import { AuthContext } from "../provider/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 import { Circles } from "react-loader-spinner";
@@ -27,7 +28,11 @@ const PrivateRoute = ({ children }) => {
     return children;
   }
 
-  return <Navigate state={location.pathname} to="/login"></Navigate>;
+  return <Navigate state={{ from: location }} to="/login" />;
+};
+
+PrivateRoute.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default PrivateRoute;

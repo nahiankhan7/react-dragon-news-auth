@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FaRegBookmark } from "react-icons/fa";
 import { BsShare } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -34,7 +35,7 @@ const News = ({ news }) => {
         <figure>
           <img
             src={image_url}
-            alt={title}
+            alt={title} // Use descriptive alt text
             className="my-4 w-full h-auto rounded-lg shadow-md"
           />
         </figure>
@@ -55,11 +56,31 @@ const News = ({ news }) => {
         <hr className="border-gray-300 my-4" />
         <div className="flex items-center">
           <span className="text-gray-600">Rating:</span>
-          <p className="ml-2 text-gray-800 font-semibold">{rating.number}</p>
+          <p className="ml-2 text-gray-800 font-semibold">
+            {rating?.number}
+          </p>{" "}
+          {/* Optional chaining */}
         </div>
       </div>
     </div>
   );
+};
+
+News.propTypes = {
+  news: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    author: PropTypes.shape({
+      img: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      published_date: PropTypes.string.isRequired,
+    }).isRequired,
+    title: PropTypes.string.isRequired,
+    image_url: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
+    rating: PropTypes.shape({
+      number: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default News;

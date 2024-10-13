@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../Shared/Navbar/Navbar";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
+import PropTypes from "prop-types";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
+  const [error, setError] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -16,10 +18,11 @@ const Register = () => {
 
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        console.log("User registered:", result.user);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Registration error:", error);
+        setError("Registration failed. Please try again.");
       });
   };
 
@@ -29,6 +32,11 @@ const Register = () => {
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <div className="bg-white shadow-md rounded-lg p-8 mt-6 w-96">
           <h2 className="text-2xl font-bold text-center mb-6">Registration</h2>
+          {error && (
+            <div className="mb-4 text-red-600" aria-live="assertive">
+              {error} {/* Display error message */}
+            </div>
+          )}
           <form onSubmit={handleRegister}>
             <div className="mb-4">
               <label
@@ -106,6 +114,10 @@ const Register = () => {
       </div>
     </>
   );
+};
+
+Register.propTypes = {
+  createUser: PropTypes.func.isRequired,
 };
 
 export default Register;

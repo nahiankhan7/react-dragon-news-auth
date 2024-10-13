@@ -4,7 +4,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.nav-link {
-     @apply text-lg text-gray-600 hover:text-gray-950 duration-200 font-medium
-}

@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../Shared/Navbar/Navbar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
   const { logIn } = useContext(AuthContext);
+  const [error, setError] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.error(error);
+        setError("Login failed. Please check your credentials.");
       });
   };
 
@@ -31,6 +33,11 @@ const Login = () => {
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <div className="bg-white shadow-md rounded-lg p-8 mt-6 w-96">
           <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+          {error && (
+            <div className="mb-4 text-red-600" aria-live="assertive">
+              {error}
+            </div>
+          )}
           <form onSubmit={handleLogin}>
             <div className="mb-4">
               <label
