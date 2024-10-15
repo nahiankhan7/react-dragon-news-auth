@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { FaRegBookmark } from "react-icons/fa";
 import { BsShare } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { FaEye } from "react-icons/fa";
 
 const News = ({ news }) => {
-  const { _id, author, title, image_url, details, rating } = news;
+  const { _id, author, title, image_url, details, rating, total_view } = news;
 
   return (
     <div className="my-6 border rounded-lg overflow-hidden shadow-md">
@@ -35,7 +36,7 @@ const News = ({ news }) => {
         <figure>
           <img
             src={image_url}
-            alt={title} // Use descriptive alt text
+            alt={title}
             className="my-4 w-full h-auto rounded-lg shadow-md"
           />
         </figure>
@@ -54,12 +55,18 @@ const News = ({ news }) => {
           )}
         </div>
         <hr className="border-gray-300 my-4" />
-        <div className="flex items-center">
-          <span className="text-gray-600">Rating:</span>
-          <p className="ml-2 text-gray-800 font-semibold">
-            {rating?.number}
-          </p>{" "}
-          {/* Optional chaining */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <span className="text-gray-600">Rating:</span>
+            <p className="ml-2 text-gray-800 font-semibold">
+              {rating?.number}
+            </p>{" "}
+          </div>
+
+          <div className="flex items-center gap-x-3">
+            <FaEye />
+            <p>{total_view}</p>
+          </div>
         </div>
       </div>
     </div>
